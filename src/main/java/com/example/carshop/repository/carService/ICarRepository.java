@@ -1,4 +1,4 @@
-package com.example.carshop.repository;
+package com.example.carshop.repository.carService;
 
 import com.example.carshop.model.Car;
 

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách xe hơi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #27ae60;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        thead {
+            background-color: #3498db;
+            color: white;
+        }
+
+
+        img {
+            max-width: 100px;
+            border-radius: 8px;
+        }
+
+        .action-links a {
+            margin: 0 5px;
+            color: black;
+            text-decoration: none;
+        }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cửa Hàng Xe Hơi</h1>
+
+    <nav>
+        <a th:href="@{/showForm/createCar}">Thêm sản phẩm mới</a>
+        <a th:href="@{/showForm/clientList}">Quản lý người dùng</a>
+    </nav>
+
+    <div th:if="${success}" class="success">
+        <strong th:text="${success}"></strong>
+    </div>
+
+    <form th:action="@{/showForm/searchCar}" method="get">
+        <input type="text" name="keyword" placeholder="Nhập tên xe" />
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Tên xe</th>
+            <th>Ảnh</th>
+            <th>Hãng</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="carItem : ${car}">
+            <td th:text="${carItem.name}">Tên xe</td>
+            <td><img th:src="@{${carItem.img}}" alt="Ảnh xe"/></td>
+            <td th:text="${carItem.brand}">Hãng xe</td>
+            <td th:text="${carItem.quantity}">Số lượng</td>
+            <td><span th:text="${#numbers.formatDecimal(carItem.price, 0, 'POINT', 3, 'COMMA')}">Giá</span> VNĐ</td>
+            <td class="action-links">
+                <a th:href="@{/showForm/{id}/editCar(id=${carItem.id})}">Sửa</a>
+                <a th:href="@{/showForm/{id}/deleteCar(id=${carItem.id})}">Xoá</a>
+                <a th:href="@{/showForm/{id}/viewCar(id=${carItem.id})}">Chi tiết</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

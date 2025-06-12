@@ -1,4 +1,6 @@
-package com.example.carshop.repository;
+package com.example.carshop.repository.userService;
+
+import com.example.carshop.model.User;
 
 import java.util.List;
 
@@ -11,4 +13,6 @@ public interface IGenerateRepository<T> {
 
     void remove(Long id);
     List<T> searchByName(String keyword);
+
+    User findByEmail(String email);
 }

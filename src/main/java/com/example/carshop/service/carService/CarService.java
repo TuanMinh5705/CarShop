@@ -1,7 +1,7 @@
-package com.example.carshop.service;
+package com.example.carshop.service.carService;
 
 import com.example.carshop.model.Car;
-import com.example.carshop.repository.ICarRepository;
+import com.example.carshop.repository.carService.ICarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +36,5 @@ public class CarService implements ICarService {
     public List<Car> searchByName(String keyword) {
         return iCarRepository.searchByName(keyword);
     }
+
 }

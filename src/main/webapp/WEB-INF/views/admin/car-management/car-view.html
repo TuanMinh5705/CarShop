@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Chi tiết xe</title>
+</head>
+<body>
+<h1>Thông tin chi tiết</h1>
+<p>
+    <a th:href="@{/showForm}">
+        Quay lại
+    </a>
+</p>
+<div id="detail">
+    <div class="cus-detail">
+        <label>Tên:</label>
+        <label th:text="${car.name}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Ảnh:</label>
+        <img th:src="@{${car.img}}"/>
+    </div>
+    <div class="cus-detail">
+        <label>Hãng xe:</label>
+        <label th:text="${car.brand}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Năm sản xuất:</label>
+        <label th:text="${car.year}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Màu xe:</label>
+        <label th:text="${car.color}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Số lượng:</label>
+        <label th:text="${car.quantity}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Giá:</label>
+        <label th:text="${car.price}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Loại động cơ:</label>
+        <label th:text="${car.engineType}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Mô tả:</label>
+        <label th:text="${car.description}"></label>
+    </div>
+</div>
+</body>
+</html>

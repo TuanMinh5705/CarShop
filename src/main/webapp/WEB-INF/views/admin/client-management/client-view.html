@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin tài khoản</title>
+</head>
+<body>
+<h1>Cập nhật người dùng</h1>
+<p><a th:href="@{/showForm/clientList}">Quay lại</a></p>
+<div id="form">
+    <form action="/showForm/viewUser" th:object="${user}"
+          method="POST" novalidate="novalidate">
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div>
+            <label>Tên:</label>
+            <label th:text="*{name}"></label>
+            <input type="hidden" th:field="*{name}"/>
+        </div>
+
+        <div>
+            <label>Email:</label>
+            <label th:text="*{email}"></label>
+            <input type="hidden" th:field="*{email}"/>
+        </div>
+
+        <div>
+            <label>Số điện thoại:</label>
+            <label th:text="*{phoneNumber}"></label>
+            <input type="hidden" th:field="*{phoneNumber}"/>
+        </div>
+
+        <div>
+            <label>Vai trò:</label>
+            <label th:text="*{role}"></label>
+            <input type="hidden" th:field="*{role}"/>
+        </div>
+
+        <div>
+            <label>Trạng thái:</label>
+            <label th:text="*{status}"></label>
+            <input type="hidden" th:field="*{status}"/>
+        </div>
+
+        <div>
+            <label>Mật khẩu:</label>
+            <label th:text="*{password}"></label>
+            <input type="hidden" th:field="*{password}"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

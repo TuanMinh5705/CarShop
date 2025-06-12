@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
-<head th:replace="/layout :: head">
-    <meta charset="UTF-8">
-    <title>CreateCar</title>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Sửa thông tin xe</title>
 </head>
 <body>
-<h2>Thêm xe hơi mới</h2>
-<p>
-    <a th:href="@{/adminForm}">Quay lại</a>
-</p>
+<h1>Sửa thông tin xe</h1>
+<p><a th:href="@{/showForm}">Quay lại</a></p>
 <div id="form">
-    <form th:action="@{/adminForm/save}" th:object="${cars}"
+    <form th:action="@{/showForm/updateCar}" th:object="${car}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>
@@ -49,7 +46,7 @@
             <label>Mô tả</label>
             <input type="text" th:field="*{description}"/>
         </div>
-        <input type="submit" value="Thêm"/>
+        <input type="submit" value="Cập nhật"/>
     </form>
 </div>
 </body>

@@ -1,18 +1,18 @@
 package com.example.carshop.controller;
 
 import com.example.carshop.model.Car;
-import com.example.carshop.service.ICarService;
-import com.example.carshop.service.IUserService;
+import com.example.carshop.model.User;
+import com.example.carshop.service.userService.IUserService;
+import com.example.carshop.service.carService.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
-@RequestMapping("/adminForm")
+@RequestMapping("/showForm")
 public class AdminController {
     @Autowired
     private ICarService iCarService;
@@ -21,50 +21,102 @@ public class AdminController {
 
     @GetMapping("")
     public String homeAdmin(Model model){
-        model.addAttribute("cars", iCarService.findAll());
-        return "/admin/carManagement/carList";
+        model.addAttribute("car", iCarService.findAll());
+        return "/admin/car-management/car-list";
     }
 
-    @GetMapping("/create")
-    public String create(Model model){
-        model.addAttribute("cars", new Car());
-        return "/admin/carManagement/create";
+    @GetMapping("/createCar")
+    public String createCar(Model model){
+        model.addAttribute("car", new Car());
+        return "/admin/car-management/car-create";
     }
 
-    @PostMapping("/save")
-    public String save(Car car){
+    @PostMapping("/saveCreateCar")
+    public String saveCreateCar(Car car){
         iCarService.save(car);
-        return "redirect:/AdminForm";
+        return "redirect:/showForm";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable Long id, Model model){
-        model.addAttribute("cars", iCarService.findById(id));
-        return "/admin/carManagement/edit";
+    @GetMapping("/{id}/editCar")
+    public String editCar(@PathVariable Long id, Model model){
+        model.addAttribute("car", iCarService.findById(id));
+        return "/admin/car-management/car-edit";
     }
 
-    @PostMapping("/update")
-    public String edit(Car car){
+    @PostMapping("/updateCar")
+    public String updateCar(Car car){
         iCarService.save(car);
-        return "redirect:/AdminForm";
+        return "redirect:/showForm";
     }
 
-    @GetMapping("/{id}/delete")
-    public String delete(@PathVariable Long id, Model model) {
-        model.addAttribute("cars", iCarService.findById(id));
-        return "/admin/carManagement/delete";
+    @GetMapping("/{id}/deleteCar")
+    public String deleteCar(@PathVariable Long id, Model model) {
+        model.addAttribute("car", iCarService.findById(id));
+        return "/admin/car-management/car-delete";
     }
 
-    @PostMapping("delete")
+    @PostMapping("/confirmDelete")
     public String delete(Car car){
         iCarService.remove(car.getId());
-        return "redirect:/AdminForm";
+        return "redirect:/showForm";
+    }
+
+    @GetMapping("/{id}/viewCar")
+    public String viewCar(@PathVariable Long id, Model model){
+        model.addAttribute("car", iCarService.findById(id));
+        return "/admin/car-management/car-view";
+    }
+
+    @GetMapping("/searchCar")
+    public String searchCars(@RequestParam("keyword") String keyword, Model model) {
+        List<Car> carList = iCarService.searchByName(keyword);
+        model.addAttribute("car", carList);
+        model.addAttribute("keyword", keyword);
+        return "/admin/car-management/car-list";
     }
 
     //UserManagement
-    @GetMapping("/userList")
-    public String homeUser(Model model){
-        model.addAttribute("users", iUserService.findAll());
-        return "/admin/userManagement/userList";
+    @GetMapping("/clientList")
+    public String listUser(Model model){
+        model.addAttribute("user", iUserService.findAll());
+        return "/admin/client-management/client-list";
+    }
+
+    @GetMapping("/createClient")
+    public String createUser(Model model){
+        model.addAttribute("user", new User());
+        return "/admin/client-management/client-create";
+    }
+
+    @PostMapping("/saveClient")
+    public String saveUser(User user){
+        iUserService.save(user);
+        return "redirect:/showForm/clientList";
+    }
+
+    @GetMapping("/{id}/editClient")
+    public String editUser(@PathVariable Long id, Model model) {
+        model.addAttribute("user", iUserService.findById(id));
+        return "/admin/client-management/client-edit";
+    }
+
+    @PostMapping("/updateClient")
+    public String updateUser(User user){
+        iUserService.save(user);
+        return "redirect:/showForm/clientList";
+    }
+
+    @GetMapping("/{id}/viewClient")
+    public String userView(@PathVariable long id, Model model){
+        model.addAttribute("user", iUserService.findById(id));
+        return "/admin/client-management/client-view";
+    }
+
+    @GetMapping("/searchClient")
+    public String searchUsers(@RequestParam("keyword") String keyword, Model model) {
+        List<User> userList = iUserService.searchByName(keyword);
+        model.addAttribute("user", userList);
+        model.addAttribute("keyword", keyword);
+        return "/admin/client-management/client-list";
     }
 }

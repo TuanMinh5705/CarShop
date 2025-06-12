@@ -1,4 +1,4 @@
-package com.example.carshop.repository;
+package com.example.carshop.repository.carService;
 
 import com.example.carshop.model.Car;
 import org.springframework.stereotype.Repository;
@@ -34,11 +34,11 @@ public class CarRepository implements ICarRepository {
     }
 
     @Override
-    public void save(Car car) {
-        if (car.getId() != null) {
-            entityManager.merge(car);
+    public void save(Car beverage) {
+        if (beverage.getId() != null) {
+            entityManager.merge(beverage);
         } else {
-            entityManager.persist(car);
+            entityManager.persist(beverage);
         }
     }
 

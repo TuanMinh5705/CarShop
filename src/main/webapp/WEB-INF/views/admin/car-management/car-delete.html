@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="/layout :: head">
-    <title>DeleteCar</title>
+<head>
+    <title>Xoá xe hơi</title>
 </head>
 <body>
-<h2>Xoá xe</h2>
-<p><a th:href="@{/adminForm}">Quay lại</a></p>
+<h1>Xoá xe hơi</h1>
+<p><a th:href="@{/showForm}">Quay lại</a></p>
 <div id="form">
-    <form th:action="@{/adminForm/delete}" th:object="${cars}"
+    <form th:action="@{/showForm/confirmDelete}" th:object="${car}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>

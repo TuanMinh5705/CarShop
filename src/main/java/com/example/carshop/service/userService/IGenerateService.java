@@ -1,6 +1,9 @@
-package com.example.carshop.service;
+package com.example.carshop.service.userService;
+
+import com.example.carshop.model.User;
 
 import java.util.List;
+
 public interface IGenerateService<T> {
     List<T> findAll();
 
@@ -10,4 +13,5 @@ public interface IGenerateService<T> {
 
     void remove(Long id);
     List<T> searchByName(String keyword);
+    User findByEmail(String email);
 }
