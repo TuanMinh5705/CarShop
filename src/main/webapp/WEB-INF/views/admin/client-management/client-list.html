@@ -110,15 +110,15 @@
     <h1>Danh sách người dùng</h1>
 
     <nav>
-        <a th:href="@{/showForm/createClient}">Thêm người dùng</a>
-        <a th:href="@{/showForm}">Quản lý xe hơi</a>
+        <a th:href="@{/show-form/createClient}">Thêm người dùng</a>
+        <a th:href="@{/show-form}">Quản lý xe hơi</a>
     </nav>
 
     <div th:if="${success}" class="success">
         <span th:text="${success}"></span>
     </div>
 
-    <form th:action="@{/showForm/searchClient}" method="get">
+    <form th:action="@{/show-form/searchClient}" method="get">
         <input type="text" name="keyword" placeholder="Nhập tên người dùng" />
         <button type="submit">Tìm kiếm</button>
     </form>
@@ -142,8 +142,8 @@
             <td th:text="${row.role}">Vai trò</td>
             <td th:text="${row.status}">Trạng thái</td>
             <td class="action-links">
-                <a th:href="@{/showForm/{id}/editClient(id=${row.id})}">Sửa</a>
-                <a th:href="@{/showForm/{id}/viewClient(id=${row.id})}">Chi tiết</a>
+                <a th:href="@{/show-form/{id}/editClient(id=${row.id})}">Sửa</a>
+                <a th:href="@{/show-form/{id}/viewClient(id=${row.id})}">Chi tiết</a>
             </td>
         </tr>
         </tbody>

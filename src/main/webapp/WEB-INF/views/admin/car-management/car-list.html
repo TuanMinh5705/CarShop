@@ -115,15 +115,15 @@
     <h1>Cửa Hàng Xe Hơi</h1>
 
     <nav>
-        <a th:href="@{/showForm/createCar}">Thêm sản phẩm mới</a>
-        <a th:href="@{/showForm/clientList}">Quản lý người dùng</a>
+        <a th:href="@{/show-form/createCar}">Thêm sản phẩm mới</a>
+        <a th:href="@{/show-form/clientList}">Quản lý người dùng</a>
     </nav>
 
     <div th:if="${success}" class="success">
         <strong th:text="${success}"></strong>
     </div>
 
-    <form th:action="@{/showForm/searchCar}" method="get">
+    <form th:action="@{/show-form/searchCar}" method="get">
         <input type="text" name="keyword" placeholder="Nhập tên xe" />
         <button type="submit">Tìm kiếm</button>
     </form>
@@ -147,9 +147,9 @@
             <td th:text="${carItem.quantity}">Số lượng</td>
             <td><span th:text="${#numbers.formatDecimal(carItem.price, 0, 'POINT', 3, 'COMMA')}">Giá</span> VNĐ</td>
             <td class="action-links">
-                <a th:href="@{/showForm/{id}/editCar(id=${carItem.id})}">Sửa</a>
-                <a th:href="@{/showForm/{id}/deleteCar(id=${carItem.id})}">Xoá</a>
-                <a th:href="@{/showForm/{id}/viewCar(id=${carItem.id})}">Chi tiết</a>
+                <a th:href="@{/show-form/{id}/editCar(id=${carItem.id})}">Sửa</a>
+                <a th:href="@{/show-form/{id}/deleteCar(id=${carItem.id})}">Xoá</a>
+                <a th:href="@{/show-form/{id}/viewCar(id=${carItem.id})}">Chi tiết</a>
             </td>
         </tr>
         </tbody>

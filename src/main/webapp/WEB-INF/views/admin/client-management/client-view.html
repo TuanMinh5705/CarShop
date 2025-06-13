@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Cập nhật người dùng</h1>
-<p><a th:href="@{/showForm/clientList}">Quay lại</a></p>
+<p><a th:href="@{/show-form/clientList}">Quay lại</a></p>
 <div id="form">
-    <form action="/showForm/viewUser" th:object="${user}"
+    <form action="/show-form/viewUser" th:object="${user}"
           method="POST" novalidate="novalidate">
 
         <input type="hidden" th:field="*{id}"/>

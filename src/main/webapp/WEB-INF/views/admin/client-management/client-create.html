@@ -7,10 +7,10 @@
 <body>
 <h1>Thêm người tài khoản mới</h1>
 <p>
-    <a th:href="@{/showForm/clientList}">Quay lại</a>
+    <a th:href="@{/show-form/clientList}">Quay lại</a>
 </p>
 <div id="form">
-    <form action="/showForm/saveClient" th:object="${user}"
+    <form action="/show-form/saveClient" th:object="${user}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/showForm")
+@RequestMapping("/show-form")
 public class AdminController {
     @Autowired
     private ICarService iCarService;
@@ -34,7 +34,7 @@ public class AdminController {
     @PostMapping("/saveCreateCar")
     public String saveCreateCar(Car car){
         iCarService.save(car);
-        return "redirect:/showForm";
+        return "redirect:/show-form";
     }
 
     @GetMapping("/{id}/editCar")
@@ -46,7 +46,7 @@ public class AdminController {
     @PostMapping("/updateCar")
     public String updateCar(Car car){
         iCarService.save(car);
-        return "redirect:/showForm";
+        return "redirect:/show-form";
     }
 
     @GetMapping("/{id}/deleteCar")
@@ -58,7 +58,7 @@ public class AdminController {
     @PostMapping("/confirmDelete")
     public String delete(Car car){
         iCarService.remove(car.getId());
-        return "redirect:/showForm";
+        return "redirect:/show-form";
     }
 
     @GetMapping("/{id}/viewCar")
@@ -91,7 +91,7 @@ public class AdminController {
     @PostMapping("/saveClient")
     public String saveUser(User user){
         iUserService.save(user);
-        return "redirect:/showForm/clientList";
+        return "redirect:/show-form/clientList";
     }
 
     @GetMapping("/{id}/editClient")
@@ -103,7 +103,7 @@ public class AdminController {
     @PostMapping("/updateClient")
     public String updateUser(User user){
         iUserService.save(user);
-        return "redirect:/showForm/clientList";
+        return "redirect:/show-form/clientList";
     }
 
     @GetMapping("/{id}/viewClient")

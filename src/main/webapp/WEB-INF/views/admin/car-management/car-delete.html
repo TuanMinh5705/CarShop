@@ -5,9 +5,9 @@
 </head>
 <body>
 <h1>Xoá xe hơi</h1>
-<p><a th:href="@{/showForm}">Quay lại</a></p>
+<p><a th:href="@{/show-form}">Quay lại</a></p>
 <div id="form">
-    <form th:action="@{/showForm/confirmDelete}" th:object="${car}"
+    <form th:action="@{/show-form/confirmDelete}" th:object="${car}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>

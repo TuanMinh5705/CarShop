@@ -7,10 +7,10 @@
 <body>
 <h1>Thêm xe hơi mới</h1>
 <p>
-    <a th:href="@{/showForm}">Quay lại</a>
+    <a th:href="@{/show-form}">Quay lại</a>
 </p>
 <div id="form">
-    <form th:action="@{/showForm/saveCreateCar}" th:object="${car}"
+    <form th:action="@{/show-form/saveCreateCar}" th:object="${car}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>

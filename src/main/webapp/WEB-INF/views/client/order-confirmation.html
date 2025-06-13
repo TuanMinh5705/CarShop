@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .car-img {
+            width: 100px;
+            border-radius: 8px;
+        }
+        .summary {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        .btn-confirm, .btn-cancel {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px 0 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-confirm {
+            background-color: #27ae60;
+            color: white;
+        }
+        .btn-confirm:hover {
+            background-color: #1e8449;
+        }
+        .btn-cancel {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📋 Xác nhận đơn hàng</h1>
+
+    <table>
+        <tr>
+            <th>Ảnh</th>
+            <th>Tên xe</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+        <tr th:each="item : ${selectedItems}">
+            <td><img th:src="@{${item.car.img}}" alt="Ảnh xe" class="car-img"/></td>
+            <td th:text="${item.car.name}"></td>
+            <td th:text="${#numbers.formatDecimal(item.car.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${#numbers.formatDecimal(item.car.price * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+        </tr>
+    </table>
+
+    <div class="summary">
+        <p>Tổng thanh toán: <strong th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' đ'"></strong></p>
+        <a href="#" class="btn-confirm">Xác nhận mua</a>
+        <a href="/home-client/cart/view" class="btn-cancel">Hủy</a>
+    </div>
+</div>
+</body>
+</html>
