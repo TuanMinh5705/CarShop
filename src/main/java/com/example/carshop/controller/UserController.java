@@ -4,6 +4,7 @@ import com.example.carshop.model.Car;
 import com.example.carshop.model.CartItem;
 import com.example.carshop.model.User;
 import com.example.carshop.repository.CartItemRepository;
+import com.example.carshop.repository.userService.IUserRepository;
 import com.example.carshop.service.carService.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class UserController {
 
     @Autowired
     private CartItemRepository cartItemRepository;
+    @Autowired private IUserRepository userRepository;
 
     @GetMapping("")
     public String homeUser(Model model, HttpSession session) {
@@ -34,94 +36,26 @@ public class UserController {
         model.addAttribute("car", iCarService.findAll());
         return "/client/home-client";
     }
-
-    @PostMapping("/cart/add/{carId}")
-    public String addToCart(@PathVariable Long carId, HttpSession session) {
-        User user = (User) session.getAttribute("currentUser");
-        if (user == null) return "redirect:/car-shop";
-
-        Car car = iCarService.findById(carId);
-        if (car == null) return "redirect:/home-client?error=carNotFound";
-
-        List<CartItem> cart = cartItemRepository.findByUser(user);
-        Optional<CartItem> existing = cart.stream()
-                .filter(i -> i.getCar().getId().equals(carId))
-                .findFirst();
-
-        if (existing.isPresent()) {
-            CartItem item = existing.get();
-            item.setQuantity(item.getQuantity() + 1);
-            cartItemRepository.save(item);
-        } else {
-            cartItemRepository.save(new CartItem(user, car, 1));
+    @GetMapping("/car-detail/{id}")
+    public String showCarDetail(@PathVariable Long id, Model model) {
+        model.addAttribute("car", iCarService.findById(id));
+        return "/client/car-detail";
+    }
+    @GetMapping("/info-client")
+    public String showInfoClient(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/authenticate/login";
         }
-
-        session.setAttribute("cart", cartItemRepository.findByUser(user));
-        return "redirect:/home-client/cart/view";
+        User userFromDb = userRepository.findById(currentUser.getId());
+        model.addAttribute("client", userFromDb);
+        return "/client/info-client";
     }
-
-    @GetMapping("/cart/view")
-    public String viewCart(HttpSession session, Model model,
-                           @ModelAttribute("error") String error,
-                           @ModelAttribute("message") String message) {
-        User user = (User) session.getAttribute("currentUser");
-        if (user == null) return "redirect:/car-shop";
-
-        List<CartItem> cart = cartItemRepository.findByUser(user);
-        double total = cart.stream().mapToDouble(CartItem::getTotalPrice).sum();
-
-        model.addAttribute("cartItems", cart);
-        model.addAttribute("total", total);
-        model.addAttribute("error", error);
-        model.addAttribute("message", message); // thêm thông báo thành công
-
-        return "/client/cart";
+    @GetMapping("/search")
+    public String searchCars(@RequestParam("keyword") String keyword, Model model) {
+        List<Car> cars = iCarService.searchByName(keyword);
+        model.addAttribute("car", cars);
+        model.addAttribute("keyword", keyword);
+        return "/client/home-client"; // đúng tên file HTML
     }
-
-    @GetMapping("/cart/remove/{carId}")
-    public String removeFromCart(@PathVariable Long carId, HttpSession session, RedirectAttributes redirectAttributes) {
-        User user = (User) session.getAttribute("currentUser");
-        if (user == null) return "redirect:/car-shop";
-
-        List<CartItem> cartItems = cartItemRepository.findByUser(user);
-        cartItems.stream()
-                .filter(item -> item.getCar().getId().equals(carId))
-                .findFirst()
-                .ifPresent(cartItemRepository::delete);
-
-        session.setAttribute("cart", cartItemRepository.findByUser(user));
-        redirectAttributes.addFlashAttribute("message", "✔️ Đã xoá sản phẩm khỏi giỏ hàng!");
-        return "redirect:/home-client/cart/view";
-    }
-
-    @PostMapping("/cart/checkout")
-    public String checkout(@RequestParam(value = "selectedCarIds", required = false) List<Long> selectedCarIds,
-                           HttpSession session, Model model) {
-        User user = (User) session.getAttribute("currentUser");
-        if (user == null) return "redirect:/car-shop";
-
-        if (selectedCarIds == null || selectedCarIds.isEmpty()) {
-            List<CartItem> cart = cartItemRepository.findByUser(user);
-            double total = cart.stream().mapToDouble(CartItem::getTotalPrice).sum();
-            model.addAttribute("cartItems", cart);
-            model.addAttribute("total", total);
-            model.addAttribute("error", "⚠️ Bạn chưa chọn sản phẩm nào để mua ngay!");
-            return "/client/cart";
-        }
-
-        List<CartItem> cart = cartItemRepository.findByUser(user);
-        List<CartItem> selectedItems = new ArrayList<>();
-        for (CartItem item : cart) {
-            if (selectedCarIds.contains(item.getCar().getId())) {
-                selectedItems.add(item);
-            }
-        }
-
-        model.addAttribute("selectedItems", selectedItems);
-        model.addAttribute("total", selectedItems.stream().mapToDouble(CartItem::getTotalPrice).sum());
-
-        return "/client/order-confirmation";
-    }
-
-
 }

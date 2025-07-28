@@ -14,5 +14,5 @@ public interface IGenerateRepository<T> {
     void remove(Long id);
     List<T> searchByName(String keyword);
 
-    User findByEmail(String email);
+    T findByEmail(String email);
 }

@@ -52,8 +52,10 @@ public class CarRepository implements ICarRepository {
 
     @Override
     public List<Car> searchByName(String keyword) {
-        TypedQuery<Car> sql = entityManager.createQuery("select b from Car b where b.name like :name", Car.class);
-        sql.setParameter("name","%"+keyword+"%");
+        String query = "SELECT b FROM Car b WHERE LOWER(b.name) LIKE LOWER(:name)";
+        TypedQuery<Car> sql = entityManager.createQuery(query, Car.class);
+        sql.setParameter("name", "%" + keyword + "%");
         return sql.getResultList();
     }
+
 }

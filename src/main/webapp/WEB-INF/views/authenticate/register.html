@@ -1,10 +1,59 @@
+<!-- src/main/resources/templates/authenticate/register.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Đăng ký</title>
+    <style>
+        * { box-sizing: border-box; margin:0; padding:0; }
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f5f6fa;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background:#fff; padding:30px 40px; border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.15); max-width:400px; width:100%;
+        }
+        .login-box h1 { text-align:center; margin-bottom:25px; color:#333; font-size:24px; }
+        .form-group { margin-bottom:20px; }
+        label { display:block; margin-bottom:6px; font-weight:500; color:#444; }
+        input { width:100%; padding:10px 14px; border:1px solid #ccc; border-radius:8px; font-size:15px; transition:border .3s; }
+        input:focus { border-color:#4facfe; outline:none; }
+        button {
+            width:100%; padding:12px; background:#4facfe; border:none; border-radius:8px;
+            color:#fff; font-size:16px; font-weight:bold; cursor:pointer; transition:background .3s;
+        }
+        button:hover { background:#00c6fb; }
+        .error { color:red; text-align:center; margin-top:10px; font-size:14px; }
+        .extra-links { text-align:center; margin-top:15px; font-size:14px; }
+        .extra-links a { color:#4facfe; text-decoration:none; margin:0 5px; }
+        .extra-links a:hover { text-decoration:underline; }
+    </style>
 </head>
 <body>
-
+<div class="login-box">
+    <h1>Đăng ký</h1>
+    <form th:action="@{/car-shop/register}" th:object="${userForm}" method="post" autocomplete="on">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="Nhập email của bạn" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Nhập mật khẩu" required autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Xác nhận mật khẩu</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required autocomplete="new-password" />
+        </div>
+        <div th:if="${error}" th:text="${error}" class="error"></div><br>
+        <button type="submit">Đăng ký</button>
+    </form>
+    <div class="extra-links">
+        <p>Bạn đã có tài khoản? <a th:href="@{/car-shop}">Đăng nhập</a></p>
+    </div>
+</div>
 </body>
 </html>

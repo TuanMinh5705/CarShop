@@ -1,54 +1,109 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Thông tin tài khoản</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        p a {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+
+        #detail {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+        }
+
+        .cus-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cus-detail label:first-child {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 6px;
+        }
+
+        .cus-detail label:last-child {
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+
+        /* Nếu cần thêm style cho mật khẩu ẩn */
+        .password-field label:last-child {
+            font-family: monospace;
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 768px) {
+            #detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Cập nhật người dùng</h1>
-<p><a th:href="@{/show-form/clientList}">Quay lại</a></p>
-<div id="form">
-    <form action="/show-form/viewUser" th:object="${user}"
-          method="POST" novalidate="novalidate">
 
-        <input type="hidden" th:field="*{id}"/>
+<h1>Thông tin tài khoản</h1>
+<p>
+    <a th:href="@{/show-form/clientList}">Quay lại</a>
+</p>
 
-        <div>
-            <label>Tên:</label>
-            <label th:text="*{name}"></label>
-            <input type="hidden" th:field="*{name}"/>
-        </div>
-
-        <div>
-            <label>Email:</label>
-            <label th:text="*{email}"></label>
-            <input type="hidden" th:field="*{email}"/>
-        </div>
-
-        <div>
-            <label>Số điện thoại:</label>
-            <label th:text="*{phoneNumber}"></label>
-            <input type="hidden" th:field="*{phoneNumber}"/>
-        </div>
-
-        <div>
-            <label>Vai trò:</label>
-            <label th:text="*{role}"></label>
-            <input type="hidden" th:field="*{role}"/>
-        </div>
-
-        <div>
-            <label>Trạng thái:</label>
-            <label th:text="*{status}"></label>
-            <input type="hidden" th:field="*{status}"/>
-        </div>
-
-        <div>
-            <label>Mật khẩu:</label>
-            <label th:text="*{password}"></label>
-            <input type="hidden" th:field="*{password}"/>
-        </div>
-    </form>
+<div id="detail" th:object="${user}">
+    <div class="cus-detail">
+        <label>Tên:</label>
+        <label th:text="*{name}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Email:</label>
+        <label th:text="*{email}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Số điện thoại:</label>
+        <label th:text="*{phoneNumber}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Vai trò:</label>
+        <label th:text="*{role}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Trạng thái:</label>
+        <label th:text="*{status}"></label>
+    </div>
+    <div class="cus-detail password-field" style="grid-column: 1 / -1;">
+        <label>Mật khẩu:</label>
+        <label th:text="*{password}"></label>
+    </div>
 </div>
+
 </body>
 </html>

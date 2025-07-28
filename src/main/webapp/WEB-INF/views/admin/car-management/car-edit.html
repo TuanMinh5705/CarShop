@@ -1,53 +1,152 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Sửa thông tin xe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        p a {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+
+        #form {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        input[type="text"] {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fdfdfd;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        input[type="submit"] {
+            grid-column: 1 / -1;
+            padding: 14px;
+            background-color: #f39c12;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #e67e22;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+
 <h1>Sửa thông tin xe</h1>
 <p><a th:href="@{/show-form}">Quay lại</a></p>
+
 <div id="form">
-    <form th:action="@{/show-form/updateCar}" th:object="${car}"
-          method="POST" novalidate="novalidate">
+    <form th:action="@{/show-form/updateCar}" th:object="${car}" method="POST" novalidate>
         <input type="hidden" th:field="*{id}"/>
+
         <div>
             <label>Tên</label>
-            <input type="text" th:field="*{name}"/>
+            <input type="text" th:field="*{name}" placeholder="Tên xe hơi"/>
         </div>
+
         <div>
             <label>Ảnh</label>
-            <input type="text" th:field="*{img}"/>
+            <input type="text" th:field="*{img}" placeholder="URL ảnh xe"/>
         </div>
+
         <div>
             <label>Hãng xe</label>
-            <input type="text" th:field="*{brand}"/>
+            <input type="text" th:field="*{brand}" placeholder="Hãng sản xuất"/>
         </div>
+
         <div>
             <label>Năm sản xuất</label>
-            <input type="text" th:field="*{year}"/>
+            <input type="text" th:field="*{year}" placeholder="VD: 2023"/>
         </div>
+
         <div>
             <label>Màu</label>
-            <input type="text" th:field="*{color}"/>
+            <input type="text" th:field="*{color}" placeholder="Màu sắc"/>
         </div>
+
         <div>
             <label>Số lượng</label>
-            <input type="text" th:field="*{quantity}"/>
+            <input type="text" th:field="*{quantity}" placeholder="VD: 10"/>
         </div>
+
         <div>
             <label>Giá</label>
-            <input type="text" th:field="*{price}"/>
+            <input type="text" th:field="*{price}" placeholder="VD: 500000000"/>
         </div>
+
         <div>
             <label>Loại động cơ</label>
-            <input type="text" th:field="*{engineType}"/>
+            <input type="text" th:field="*{engineType}" placeholder="Xăng, điện, hybrid..."/>
         </div>
-        <div>
+
+        <div style="grid-column: 1 / -1;">
             <label>Mô tả</label>
-            <input type="text" th:field="*{description}"/>
+            <input type="text" th:field="*{description}" placeholder="Thông tin mô tả thêm"/>
         </div>
+
         <input type="submit" value="Cập nhật"/>
     </form>
 </div>
+
 </body>
 </html>

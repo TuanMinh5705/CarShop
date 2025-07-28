@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin khách hàng</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .info-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .info-container h1 {
+            margin-top: 0;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table th, .info-table td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .info-table th {
+            width: 30%;
+            background-color: #f0f0f0;
+        }
+        .actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="info-container">
+    <h1>Thông tin khách hàng</h1>
+    <table class="info-table">
+        <tr>
+            <th>Email</th>
+            <td th:text="${client.email}">user@example.com</td>
+        </tr>
+        <tr>
+            <th>Họ và tên</th>
+            <td th:text="${client.name}">Nguyễn Văn A</td>
+        </tr>
+        <tr>
+            <th>Số điện thoại</th>
+            <td th:text="${client.phoneNumber}">0123456789</td>
+        </tr>
+    </table>
+
+    <div class="actions">
+        <a th:href="@{/edit-client}" class="btn">Đổi mật khẩu</a>
+    </div>
+
+    <div class="actions">
+        <a th:href="@{/edit-client}" class="btn">Chỉnh sửa thông tin</a>
+    </div>
+
+</div>
+</body>
+</html>

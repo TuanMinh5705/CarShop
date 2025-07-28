@@ -1,15 +1,86 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Chi tiết xe</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        p a {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+
+        #detail {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+        }
+
+        .cus-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cus-detail label:first-child {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 6px;
+        }
+
+        .cus-detail label:last-child {
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        img {
+            width: 200px; /* Kích thước cố định */
+            height: 130px;
+            object-fit: cover; /* Giữ tỉ lệ và cắt ảnh cho đẹp */
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            image-rendering: auto; /* Tăng chất lượng khi resize */
+        }
+
+
+        @media (max-width: 768px) {
+            #detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+
 <h1>Thông tin chi tiết</h1>
 <p>
-    <a th:href="@{/show-form}">
-        Quay lại
-    </a>
+    <a th:href="@{/show-form}">Quay lại</a>
 </p>
+
 <div id="detail">
     <div class="cus-detail">
         <label>Tên:</label>
@@ -17,7 +88,7 @@
     </div>
     <div class="cus-detail">
         <label>Ảnh:</label>
-        <img th:src="@{${car.img}}"/>
+        <img th:src="@{${car.img}}" alt="Ảnh xe hơi"/>
     </div>
     <div class="cus-detail">
         <label>Hãng xe:</label>
@@ -43,10 +114,11 @@
         <label>Loại động cơ:</label>
         <label th:text="${car.engineType}"></label>
     </div>
-    <div class="cus-detail">
+    <div class="cus-detail" style="grid-column: 1 / -1;">
         <label>Mô tả:</label>
         <label th:text="${car.description}"></label>
     </div>
 </div>
+
 </body>
 </html>

@@ -8,12 +8,83 @@
             font-family: Arial, sans-serif;
             background: #f5f6fa;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
 
+        /* Toggle button (hamburger icon) */
+        .toggle-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            width: 35px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .toggle-btn span {
+            display: block;
+            height: 4px;
+            background-color: #2c3e50;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn.open span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .toggle-btn.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .toggle-btn.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Sidebar overlay */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100%;
+            background-color: #556d86;
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        nav.visible {
+            transform: translateX(0);
+        }
+
+        nav h2 {
+            color: white;
+        }
+
+        nav a {
+            display: block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content */
         .container {
             max-width: 1000px;
-            margin: auto;
+            margin: 20px auto 40px;
             background: #fff;
             padding: 30px;
             border-radius: 10px;
@@ -23,23 +94,7 @@
         h1 {
             text-align: center;
             color: #2c3e50;
-        }
-
-        nav {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-            font-weight: 600;
+            margin-top: 10px;
         }
 
         form {
@@ -106,13 +161,27 @@
     </style>
 </head>
 <body>
+
+<!-- Toggle Button with animated bars -->
+<div class="toggle-btn" id="toggleBtn" onclick="toggleNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+    <br>
+    <h2>Menu</h2>
+    <a th:href="@{/show-form/createClient}">Thêm người dùng</a>
+    <a th:href="@{/show-form}">Quản lý xe hơi</a>
+    <a th:href="@{#}">Quản lý đơn hàng</a>
+    <a th:href="@{/car-shop/logout}">Đăng xuất</a>
+</nav>
+
+<!-- Main Content -->
 <div class="container">
     <h1>Danh sách người dùng</h1>
-
-    <nav>
-        <a th:href="@{/show-form/createClient}">Thêm người dùng</a>
-        <a th:href="@{/show-form}">Quản lý xe hơi</a>
-    </nav>
 
     <div th:if="${success}" class="success">
         <span th:text="${success}"></span>
@@ -149,5 +218,16 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function toggleNav() {
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggleBtn");
+
+        sidebar.classList.toggle("visible");
+        toggleBtn.classList.toggle("open");
+    }
+</script>
+
 </body>
 </html>
