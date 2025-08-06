@@ -1,83 +1,138 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Thông tin khách hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f6fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
             margin: 0;
-            padding: 20px;
+            padding: 60px 20px;
         }
+
         .info-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 20px;
+            max-width: 650px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+            animation: fadeIn 0.6s ease-in-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .info-container h1 {
-            margin-top: 0;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
         }
+
         .info-table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 30px;
         }
+
         .info-table th, .info-table td {
             text-align: left;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+            padding: 14px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
         }
+
         .info-table th {
-            width: 30%;
-            background-color: #f0f0f0;
+            width: 35%;
+            background-color: #f9fafc;
+            color: #555;
         }
+
+        .info-table td {
+            color: #333;
+        }
+
         .actions {
-            margin-top: 20px;
-            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
+
         .btn {
-            display: inline-block;
-            padding: 10px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 500;
             background-color: #007bff;
-            color: #fff;
+            color: white;
+            border: none;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
         }
+
         .btn:hover {
             background-color: #0056b3;
+        }
+
+        .btn i {
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .info-container {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
+
 <div class="info-container">
     <h1>Thông tin khách hàng</h1>
+
     <table class="info-table">
         <tr>
             <th>Email</th>
-            <td th:text="${client.email}">user@example.com</td>
+            <td th:text="${client.email}"></td>
         </tr>
         <tr>
             <th>Họ và tên</th>
-            <td th:text="${client.name}">Nguyễn Văn A</td>
+            <td th:text="${client.name}"></td>
         </tr>
         <tr>
             <th>Số điện thoại</th>
-            <td th:text="${client.phoneNumber}">0123456789</td>
+            <td th:text="${client.phoneNumber}"></td>
         </tr>
     </table>
 
     <div class="actions">
-        <a th:href="@{/edit-client}" class="btn">Đổi mật khẩu</a>
+        <a th:href="@{/edit-client}" class="btn">
+            <i class="fas fa-edit"></i> Chỉnh sửa
+        </a>
+        <a th:href="@{/change-password}" class="btn" style="background-color: #28a745;">
+            <i class="fas fa-key"></i> Đổi mật khẩu
+        </a>
     </div>
-
-    <div class="actions">
-        <a th:href="@{/edit-client}" class="btn">Chỉnh sửa thông tin</a>
-    </div>
-
 </div>
+
 </body>
 </html>

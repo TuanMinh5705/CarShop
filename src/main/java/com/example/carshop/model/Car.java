@@ -8,16 +8,16 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name; // Tên
+    private String name;
 
-    private String img; // Ảnh
-    private String brand; // Hãng xe, ví dụ: Toyota, Ford
-    private int year; // Năm sản xuất
-        private String color; // Màu sắc
-    private String quantity; // Số lượng
-    private double price; // Giá xe
-    private String engineType; // Loại động cơ, ví dụ: xăng, dầu, điện
-    private String description; // Mô tả
+    private String img;
+    private String brand;
+    private int year;
+        private String color;
+    private String quantity;
+    private double price;
+    private String engineType;
+    private String description;
 
     public Car() {
     }
