@@ -13,6 +13,8 @@ public class User {
     private String email;
     private int phoneNumber;
 
+    private String address;
+
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
@@ -32,6 +34,25 @@ public class User {
         this.role = role;
         this.status = status;
         this.password = password;
+    }
+
+    public User(Long id, String name, String email, int phoneNumber, String address, UserRole role, UserStatus status, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.status = status;
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getId() { return id; }

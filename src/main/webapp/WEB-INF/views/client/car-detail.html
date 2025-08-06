@@ -5,8 +5,317 @@
     <title>Chi tiết xe</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <style>
+        :root {
+            --primary-color: #181818;
+            --button-hover-bg: rgba(255, 255, 255, 0.1);
+            --hotline-color: #ffd600;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 100px;
+            background-color: #f4f4f4;
+        }
+
+        /* Nav-bar styles */
+        #nav-wave {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            padding: 20px 60px;
+            z-index: 1100;
+        }
+
+        .nav-items-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        button.nav-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        button.nav-btn::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.4s ease;
+        }
+
+        button.nav-btn:hover::after {
+            width: 100%;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 240px;
+            height: 22px;
+            padding: 6px 35px 6px 12px;
+            border: none;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .search-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-color);
+        }
+
+        .hotline {
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+            color: var(--hotline-color);
+            font-weight: 600;
+            margin-left: 10px;
+            gap: 8px;
+        }
+
+        .hotline a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .icon-container {
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .icon-button i {
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Car detail styles */
+        .car-detail-container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+
+        .product-image img {
+            width: 400px;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .car-info {
+            flex: 1;
+        }
+
+        .car-info h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .car-info p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .price {
+            color: #e53935;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #ff6f00;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .buy-button i {
+            margin-right: 8px;
+        }
+
+        .buy-button:hover {
+            background-color: #e65100;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            animation: fadeInScale 0.3s ease-in-out;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 12px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .modal-box p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .cancel-btn {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background-color: #b5b5b5;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body>
+
+<!-- Nav Wave -->
+<div id="nav-wave">
+    <div class="nav-items-wrapper">
+        <button class="nav-btn" onclick="location.href='/home-client'">TRANG CHỦ</button>
+        <button class="nav-btn" onclick="location.href='#'">CÁC MÔ HÌNH</button>
+        <button class="nav-btn" onclick="location.href='#'">ĐẠI LÝ</button>
+        <button class="nav-btn" onclick="location.href='#'">CÁC THỂ LOẠI XE</button>
+
+        <form id="searchBar" action="/home-client/search" method="get">
+            <div class="search-wrapper">
+                <input
+                        type="text"
+                        name="keyword"
+                        placeholder="Tìm kiếm xe..."
+                        th:value="${keyword != null} ? ${keyword} : ''"
+                        required
+                />
+                <button type="submit" class="search-btn" aria-label="Tìm kiếm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5
+                                 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79
+                                 l5 4.99L20.49 19l-4.99-5zm-6 0C8.01 14 6 11.99 6 9.5S8.01 5
+                                 10.5 5 15 7.01 15 9.5 12.99 14 10.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+
+        <div class="hotline">
+            <i class="fa fa-phone hotline-icon" aria-hidden="true"></i>
+            Hotline: <a href="tel:190015028">1900 15028</a>
+        </div>
+
+        <div class="icon-container">
+            <button class="icon-button" onclick="location.href='/home-client/info-client'">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="icon-button" onclick="openLogoutModal()">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Car Detail -->
 <div class="car-detail-container">
     <div class="product-image">
         <img th:src="@{${car.img}}" alt="Hình ảnh xe"/>
@@ -14,7 +323,6 @@
     <div class="car-info">
         <h3 th:text="${car.name}">Tên xe</h3>
         <p><strong>Hãng xe:</strong> <span th:text="${car.brand}">Hãng xe</span></p>
-        <p><strong>Số lượng:</strong> <span th:text="${car.quantity}">0</span></p>
         <p><strong>Màu:</strong> <span th:text="${car.color}">Màu</span></p>
         <p><strong>Loại động cơ:</strong> <span th:text="${car.engineType}">Động cơ</span></p>
         <p><strong>Mô tả:</strong> <span th:text="${car.description}">Mô tả</span></p>
@@ -25,5 +333,36 @@
         </a>
     </div>
 </div>
+
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+    <div class="modal-box">
+        <h2>Xác nhận đăng xuất</h2>
+        <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+        <div class="modal-actions">
+            <button class="btn logout-btn" onclick="location.href='/logout'">Đăng xuất</button>
+            <button class="btn cancel-btn" onclick="closeLogoutModal()">Hủy</button>
+        </div>
+    </div>
+</div>
+
+<!-- JS Script -->
+<script>
+    function openLogoutModal() {
+        document.getElementById("logoutModal").style.display = "flex";
+    }
+
+    function closeLogoutModal() {
+        document.getElementById("logoutModal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById("logoutModal");
+        if (event.target === modal) {
+            closeLogoutModal();
+        }
+    }
+</script>
+
 </body>
 </html>
